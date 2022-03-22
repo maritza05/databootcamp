@@ -35,6 +35,8 @@ dags:
 extraEnvFrom: |
   - configMapRef:
       name: "airflow-variables"
+  - secretRef:
+      name: "airflow-connections"
 
 workers:
   extraVolumeMounts:

@@ -12,7 +12,7 @@
 crash.log
 
 # Env variables
-.env
+*.env
 
 # Large csv files
 *.csv

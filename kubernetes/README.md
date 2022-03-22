@@ -57,9 +57,31 @@ Update the file `airflow-values.yaml` attributes; repo, branch and subPath of yo
 ```
 Go to the [service account page in google cloud](https://cloud.google.com/kubernetes-engine/docs/tutorials/authenticating-to-cloud-platform), create a key file and download it in your computer. You'll use this
 key file to allow pandas access to the raw files stored in GCS.
-Create a secret with the service account
+Create a secret with the service account. For more info you can check the [documetation](https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
 ```
-kubectl create secret generic service-account --from-file=PATH-TO-KEY-FILE.json -n airflow
+kubectl create secret generic service-account --from-file=path-to-key-file.json -n airflow
+```
+
+Create a secret for connections
+```
+kubectl create secret generic airflow-connections --from-env-file=secrets.env -n airflow
+```
+
+Check the secrets with:
+``` shell
+kubectl get secrets -n airflow
+kubectl describe secrets/airflow-connections -n airflow
+```
+
+Create [ConfigMap](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/) for variables 
+```
+kubectl create configmap airflow-variables --from-env-file=variables.env -n airflow
+```
+
+Check the variables with:
+``` shell
+kubectl describe configmaps airflow-variables -n airflow
+kubectl get configmap airflow-variables -o yaml -n airflow
 ```
 
 Install the airflow chart from the repository:

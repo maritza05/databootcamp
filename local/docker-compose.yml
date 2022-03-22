@@ -16,7 +16,8 @@ services:
     ports:
       - 8080:8080
     env_file:
-      - ../.env
+      - ../variables.env
+      - ../secrets.env
     healthcheck:
       test: [ "CMD", "nc", "-z", "airflow", "8080" ]
       timeout: 45s
