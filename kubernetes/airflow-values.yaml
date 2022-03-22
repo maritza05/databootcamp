@@ -1,0 +1,59 @@
+images:
+  airflow:
+    repository: mari05/airflow-dbme
+    tag: 0.0.1
+
+# Git sync
+dags:
+  persistence:
+    # Enable persistent volume for storing dags
+    enabled: true
+    # Volume size for dags
+    size: 1Gi
+    # If using a custom storageClass, pass name here
+    storageClassName: nfs-client
+    # access mode of the persistent volume
+    accessMode: ReadWriteMany
+
+  gitSync:
+    enabled: true
+
+    # git repo clone url
+    # ssh examples ssh://git@github.com/apache/airflow.git
+    # git@github.com:apache/airflow.git
+    # https example: https://github.com/apache/airflow.git
+    repo: https://github.com/maritza05/databootcamp.git
+    branch: master
+    rev: HEAD
+    depth: 1
+    # the number of consecutive failures allowed before aborting
+    maxFailures: 0
+    # subpath within the repo where dags are located
+    # should be "" if dags are at repo root
+    subPath: "airflow-pipelines/dags"
+
+extraEnvFrom: |
+  - configMapRef:
+      name: "airflow-variables"
+
+workers:
+  extraVolumeMounts:
+    - name: my-service-account
+      mountPath: "/var/secrets/google"
+      readOnly: true
+
+  extraVolumes:
+    - name: my-service-account
+      secret:
+        secretName: service-account
+
+logs:
+  persistence:
+    # Enable persistent volume for storing logs
+    enabled: true
+    # Volume size for logs
+    size: 1Gi
+    # If using a custom storageClass, pass name here
+    storageClassName: nfs-client
+
+
