@@ -3,6 +3,10 @@
 # Export environement variables
 export AIRFLOW__CORE__LOAD_EXAMPLES=False
 
+# Installing dependencies here, installing directly in
+# the Dockerfile doesn't work for gcsfs
+pip install -r requirements.txt
+
 # Initiliase the metadatabase
 airflow db init
 
