@@ -2,6 +2,7 @@
 FROM	apache/airflow:2.2.3-python3.7
 USER	root
 COPY	./requirements.txt	./requirements.txt
+RUN	pip install -r requirements.txt
 COPY	./start_airflow.sh	./start_airflow.sh
 RUN	chmod	+x	./start_airflow.sh
 USER	airflow
