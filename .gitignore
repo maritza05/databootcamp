@@ -43,4 +43,8 @@ terraform.rc
 
 # Ignore MacOS generated files
 .DS_Store
+
+# Ignore some python generated files
+__pycache__/
+
 © 2021 GitHub, Inc.
