@@ -10,13 +10,13 @@ WITH
     up.quantity AS quantity,
     up.unit_price AS unit_price
   FROM
-    `{{params.project_id}}.{{params.dataset_name}}.log_reviews` AS lr
+    `{{params.project_id}}.{{params.dataset_name}}.{{params.logs_external_table}}` AS lr
   JOIN
-    `{{params.project_id}}.{{params.dataset_name}}.movies_reviews` AS mr
+    `{{params.project_id}}.{{params.dataset_name}}.{{params.movies_external_table}}` AS mr
   ON
     lr.id_review = mr.id_review
   JOIN
-    `{{params.project_id}}.{{params.dataset_name}}.user_purchase` AS up
+    `{{params.project_id}}.{{params.dataset_name}}.{{params.user_purchase_table}}` AS up
   ON
     up.customer_id = mr.cid )
 

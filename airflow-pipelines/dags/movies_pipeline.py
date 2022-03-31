@@ -92,7 +92,7 @@ def _write_data_on_db(csv_file):
     df["CustomerID"] = df["CustomerID"].apply(int)
 
     with tempfile.NamedTemporaryFile(dir="/temp") as temp:
-        df.to_csv(f"/temp/{temp.name}", index=False, header=False)
+        df.to_csv(f"{temp.name}", index=False, header=False)
 
         sql = f"""
         COPY {USER_PURCHASE_TABLE_NAME}
@@ -101,13 +101,13 @@ def _write_data_on_db(csv_file):
         """
 
         postgres_hook = PostgresHook(postgres_con_id="postgres_default")
-        postgres_hook.copy_expert(sql=sql, filename=f"/temp/{temp.name}")
+        postgres_hook.copy_expert(sql=sql, filename=f"{temp.name}")
 
 
 with DAG(
     "user_purchase_pipeline",
     start_date=datetime(2022, 1, 26),
-    schedule_interval="@monthly",
+    schedule_interval=None,
     default_args=default_args,
     catchup=False,
 ) as dag:
@@ -153,7 +153,7 @@ with DAG(
             "tableReference": {
                 "projectId": "{{var.value.PROJECT_ID}}",
                 "datasetId": "{{var.value.WAREHOUSE_DATASET}}",
-                "tableId": "user_puchase",
+                "tableId": "{{var.value.USER_PURCHASE_EXTERNAL_TABLE_NAME}}",
             },
             "schema": {
                 "fields": [
@@ -322,7 +322,10 @@ with DAG(
         sql="facts_table.sql",
         params={
             "project_id": PROJECT_ID,
-            "dataset_name": "{{var.value.WAREHOUSE_DATASET}}",
+            "dataset_name": Variable.get("WAREHOUSE_DATASET"),
+            "logs_external_table": Variable.get("LOGS_EXTERNAL_TABLE_NAME"),
+            "movies_external_table": Variable.get("MOVIES_EXTERNAL_TABLE_NAME"),
+            "user_purchase_table": Variable.get("USER_PURCHASE_EXTERNAL_TABLE_NAME"),
         },
         destination_dataset_table="{{var.value.WAREHOUSE_DATASET}}.facts_movie_analytics",
         allow_large_results=True,
