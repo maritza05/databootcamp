@@ -245,6 +245,7 @@ with DAG(
         cluster_name="{{var.value.DATAPROC_CLUSTER_NAME}}",
         region="{{var.value.DATAPROC_REGION}}",
         gcp_conn_id="google_default",
+        trigger_rule="all_done",
     )
 
     create_movies_external_table = BigQueryCreateExternalTableOperator(
