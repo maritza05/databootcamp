@@ -91,8 +91,8 @@ def _write_data_on_db(csv_file):
     df = df.dropna(subset=["CustomerID"]).copy()
     df["CustomerID"] = df["CustomerID"].apply(int)
 
-    with tempfile.NamedTemporaryFile(dir="/temp") as temp:
-        df.to_csv(f"{temp.name}", index=False, header=False)
+    with tempfile.TemporaryDirectory() as tempdir:
+        df.to_csv(f"{tempdir}/temp.csv", index=False, header=False)
 
         sql = f"""
         COPY {USER_PURCHASE_TABLE_NAME}
@@ -101,7 +101,7 @@ def _write_data_on_db(csv_file):
         """
 
         postgres_hook = PostgresHook(postgres_con_id="postgres_default")
-        postgres_hook.copy_expert(sql=sql, filename=f"{temp.name}")
+        postgres_hook.copy_expert(sql=sql, filename=f"{tempdir}/temp.csv")
 
 
 with DAG(
