@@ -247,7 +247,8 @@ with DAG(
 
     create_movies_external_table = BigQueryCreateExternalTableOperator(
         task_id="create_external_movies_reviews_table",
-        gcp_conn_id="google_default",
+        bigquery_conn_id="google_default",
+        google_cloud_storage_conn_id="google_default",
         table_resource={
             "tableReference": {
                 "projectId": PROJECT_ID,
@@ -264,7 +265,8 @@ with DAG(
 
     create_logs_external_table = BigQueryCreateExternalTableOperator(
         task_id="create_external_log_reviews_table",
-        gcp_conn_id="google_default",
+        bigquery_conn_id="google_default",
+        google_cloud_storage_conn_id="google_default",
         table_resource={
             "tableReference": {
                 "projectId": PROJECT_ID,
