@@ -4,7 +4,7 @@ To run this project locally as well as running it in a kubernetes cluster you ne
 
 ### Locally 
 You can run this project locally just need to:
-1. Have the variables MY_AIRFLOW_SERVICE_ACCOUNT and GOOGLE_APPLICATION_CREDENTIALS defined you can source them your variables.env file. 
+1. Have the variables MY_AIRFLOW_SERVICE_ACCOUNT and GOOGLE_APPLICATION_CREDENTIALS defined you can source them from your variables.env file. 
 2. Go to the __local__ directory and start docker-compose 
 
 ``` shell
