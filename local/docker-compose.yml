@@ -8,7 +8,6 @@ services:
       - ./airflow.cfg:/opt/airflow/airflow.cfg
       - ../airflow-pipelines/dags:/opt/airflow/dags
       - ${MY_AIRFLOW_SERVICE_ACCOUNT}:${GOOGLE_APPLICATION_CREDENTIALS}
-      - ./temp:/temp
     ports:
       - 8080:8080
     env_file:
