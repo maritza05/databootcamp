@@ -8,6 +8,10 @@ The current architecture was implemented following this guide [Provision a GKE C
 - GCP account configured. 
 - Kubectl cli
 
+## A gcloud project with the following APIs enabled:
+- Kubernetes Engine API
+- Cloud Dataproc API
+
 #### Dependencies
 - gcloud cli
 - Cluster version: 1.20 

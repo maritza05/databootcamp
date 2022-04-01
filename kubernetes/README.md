@@ -55,6 +55,7 @@ Update the file `airflow-values.yaml` attributes; repo, branch and subPath of yo
     # should be "" if dags are at repo root
     subPath: ""
 ```
+
 Go to the [service account page in google cloud](https://cloud.google.com/kubernetes-engine/docs/tutorials/authenticating-to-cloud-platform), create a key file and download it in your computer. You'll use this
 key file to allow pandas access to the raw files stored in GCS.
 Create a secret with the service account. For more info you can check the [documetation](https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
