@@ -149,6 +149,8 @@ with DAG(
     create_user_purchase_external_table = BigQueryCreateExternalTableOperator(
         task_id="create_external_user_purchase_table",
         bucket="{{var.value.STAGING_BUCKET}}",
+        bigquery_conn_id="google_default",
+        google_cloud_storage_conn_id="google_default",
         table_resource={
             "tableReference": {
                 "projectId": "{{var.value.PROJECT_ID}}",
