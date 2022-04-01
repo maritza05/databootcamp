@@ -285,6 +285,8 @@ with DAG(
 
     create_dim_location_table = BigQueryCreateEmptyTableOperator(
         task_id="create_dim_location_table",
+        bigquery_conn_id="google_default",
+        google_cloud_storage_conn_id="google_default",
         dataset_id="{{var.value.WAREHOUSE_DATASET}}",
         table_id="dim_location",
         view={
@@ -295,6 +297,8 @@ with DAG(
 
     create_dim_os_table = BigQueryCreateEmptyTableOperator(
         task_id="create_dim_os_table",
+        bigquery_conn_id="google_default",
+        google_cloud_storage_conn_id="google_default",
         dataset_id="{{var.value.WAREHOUSE_DATASET}}",
         table_id="dim_os",
         view={
@@ -305,6 +309,8 @@ with DAG(
 
     create_dim_device_table = BigQueryCreateEmptyTableOperator(
         task_id="create_dim_device_table",
+        bigquery_conn_id="google_default",
+        google_cloud_storage_conn_id="google_default",
         dataset_id="{{var.value.WAREHOUSE_DATASET}}",
         table_id="dim_devices",
         view={
@@ -315,6 +321,8 @@ with DAG(
 
     create_dim_date_table = BigQueryCreateEmptyTableOperator(
         task_id="create_dim_date_table",
+        bigquery_conn_id="google_default",
+        google_cloud_storage_conn_id="google_default",
         dataset_id="{{var.value.WAREHOUSE_DATASET}}",
         table_id="dim_date",
         view={
@@ -325,6 +333,8 @@ with DAG(
 
     create_facts_table = BigQueryExecuteQueryOperator(
         task_id="create_facts_table",
+        gcp_conn_id="google_default",
+        bigquery_conn_id="google_default",
         sql="facts_table.sql",
         params={
             "project_id": PROJECT_ID,
